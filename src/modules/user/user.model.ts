@@ -37,10 +37,10 @@ const userSchema = new Schema<IUser>(
     role: {
       type: String,
       enum: {
-        values: ['customer', 'admin'],
+        values: ['user', 'admin'],
         message: '{VALUES} is not valid. Please provide your valid role',
       },
-      default: 'customer',
+      default: 'user',
       required: true,
     },
     isBlocked: {

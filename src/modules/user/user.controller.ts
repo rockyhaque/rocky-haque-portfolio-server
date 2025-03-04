@@ -6,15 +6,15 @@ import sendResponse from '../../utils/sendResponse'
 import { StatusCodes } from 'http-status-codes'
 import catchAsync from '../../utils/catchAsync'
 
-const createUser = catchAsync(async (req, res) => {
-  const payload = req.body
-  const result = await userService.createUser(payload)
-  sendResponse(res, {
-    statusCode: StatusCodes.CREATED,
-    message: 'User has been created',
-    data: result,
-  })
-})
+// const createUser = catchAsync(async (req, res) => {
+//   const payload = req.body
+//   const result = await userService.createUser(payload)
+//   sendResponse(res, {
+//     statusCode: StatusCodes.CREATED,
+//     message: 'User has been created',
+//     data: result,
+//   })
+// })
 
 const getMyProfile = catchAsync(async (req, res) => {
   const {email} = req.params
@@ -79,7 +79,6 @@ const blockUser = catchAsync(async (req, res) => {
   })
 
 export const userController = {
-  createUser,
   getMyProfile,
   getUser,
   getSingleUser,

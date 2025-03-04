@@ -1,7 +1,7 @@
 export interface IUser {
     name: string
     age?: number
-    role: 'customer' | 'admin'
+    role: 'user' | 'admin'
     email: string
     password: string
     photoURL?: string | null

@@ -1,11 +1,11 @@
 import { IUser } from './user.interface'
 import User from './user.model'
 
-const createUser = async (payload: IUser) => {
-  // payload.role = 'admin'
-  const result = await User.create(payload)
-  return result
-}
+// const createUser = async (payload: IUser) => {
+//   // payload.role = 'admin'
+//   const result = await User.create(payload)
+//   return result
+// }
 
 const getUsers = async () => {
   const result = await User.find()
@@ -56,7 +56,6 @@ const blockUser = async (userId: string) => {
 
 
 export const userService = {
-  createUser,
   getMyProfile,
   getUsers,
   getSingleUser,

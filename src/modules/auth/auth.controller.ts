@@ -5,6 +5,16 @@ import sendResponse from '../../utils/sendResponse'
 import { StatusCodes } from 'http-status-codes'
 import { AuthService } from './auth.service'
 
+const register = catchAsync(async (req, res) => {
+  const result = await AuthService.register(req.body)
+
+  sendResponse(res, {
+    status: true,
+    statusCode: StatusCodes.CREATED,
+    message: 'User Registered Successfully',
+    data: result,
+  })
+})
 
 const login = catchAsync(async (req: Request, res: Response) => {
   const result = await AuthService.login(req.body)
@@ -41,6 +51,7 @@ const resetPassword = catchAsync(async (req: Request, res: Response) => {
 })
 
 export const AuthController = {
+  register,
   login,
   forgetPassword,
   resetPassword,
