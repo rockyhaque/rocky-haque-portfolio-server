@@ -31,7 +31,7 @@ const userSchema = new Schema<IUser>(
       required: [true, 'Please provide your password'],
       select: false, // hide password from select query [applied when hash]
     },
-    photoURL:{
+    image:{
       type: String
     },
     role: {
@@ -71,50 +71,12 @@ userSchema.pre('save', async function (next) {
   next()
 })
 
-//* not working
-// userSchema.pre('save', async function (next) {
-//   const user = this;
-
-//   console.log('User object before saving:', user);
-
-//   if (user.password) {
-//     try {
-//       const saltRounds = Number(config.bcrypt_salt_rounds); // Ensure the number is being passed
-//       if (isNaN(saltRounds)) {
-//         throw new Error("Salt rounds are not a valid number");
-//       }
-
-//       user.password = await bcrypt.hash(user.password, saltRounds);
-//       next();
-//     } catch (error) {
-//       next(error);  // Pass error to next middleware
-//     }
-//   } else {
-//     console.log('Password not provided');
-//     next(new Error('Password is required'));
-//   }
-// });
-
-// * last
-// userSchema.pre('save', async function (next) {
-//   if (!this.isModified('password')) return next(); // Hash only if password is modified
-  
-//   try {
-//     const saltRounds = Number(config.bcrypt_salt_rounds) || 10; // Default to 10 if not set
-//     this.password = await bcrypt.hash(this.password, saltRounds);
-//     next();
-//   } catch (error) {
-//     next(error);
-//   }
-// });
 
 
-
-
-userSchema.post('save', function (doc, next) {
-  doc.password = ''
-  next()
-})
+// userSchema.post('save', function (doc, next) {
+//   doc.password = ''
+//   next()
+// })
 
 const User = model<IUser>('User', userSchema)
 

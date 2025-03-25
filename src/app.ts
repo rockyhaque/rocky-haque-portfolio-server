@@ -4,6 +4,7 @@ import express, { Request, Response } from 'express'
 import { globalErrorHandler } from './middlewares/globalErrorHandler'
 import authRouter from './modules/auth/auth.route'
 import userRouter from './modules/user/user.route'
+import contactRouter from './modules/contact/contact.route';
 
 const app = express()
 
@@ -14,6 +15,7 @@ app.use(cors({ origin: ['http://localhost:3000','http://localhost:3001', 'https:
 
 app.use('/api/auth', authRouter)
 app.use('/api/users', userRouter)
+app.use('/api/contact', contactRouter)
 
 app.get('/', (req: Request, res: Response) => {
   res.send({

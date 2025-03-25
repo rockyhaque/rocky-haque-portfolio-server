@@ -24,7 +24,7 @@ const userValidationSchema = z.object({
     required_error: 'Password must be provided with string type',
   }),
 
-  photoURL: z
+  image: z
     .string({
       required_error: 'Photo must be provided with string type',
     })

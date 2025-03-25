@@ -6,9 +6,22 @@ import { ILoginUser } from './auth.interface'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
+const randomPass = Math.ceil(Math.random() * 1000000)
+
 const register = async (payload: IUser) => {
-  const result = await User.create(payload);
-  return result;
+  const existingUser = await User.findOne({ email: payload.email })
+
+  if (existingUser) {
+    throw new Error('User already exists with this email.')
+  }
+
+  // Generate a random password if not provided
+  if (!payload.password) {
+    payload.password = randomPass.toString()
+  }
+
+  const result = await User.create(payload)
+  return result
 }
 
 const login = async (payload: ILoginUser) => {
@@ -28,24 +41,25 @@ const login = async (payload: ILoginUser) => {
     throw new Error('Password is incorrect')
   }
 
-  const token = jwt.sign(
-    {
-      email: user?.email,
-      role: user?.role,
+  // const token = jwt.sign(
+  //   {
+  //     email: user?.email,
+  //     role: user?.role,
+  //   },
+  //   'secret',
+  //   {
+  //     expiresIn: '1d',
+  //   }
+  // )
+
+  return {
+    user: {
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      image: user.image || null,
     },
-    'secret',
-    {
-      expiresIn: '1d',
-    }
-  )
-
-  const verifiedUser = {
-    name: user?.name,
-    email: user?.email,
-    role: user?.role,
   }
-
-  return { token, verifiedUser }
 }
 
 const forgetPassword = async (payload: { email: string }) => {
@@ -108,7 +122,7 @@ const retsetPassword = async (payload: {
     new: true,
   })
 
-  return result;
+  return result
 }
 
 export const AuthService = {

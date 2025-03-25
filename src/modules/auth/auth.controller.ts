@@ -18,13 +18,13 @@ const register = catchAsync(async (req, res) => {
 
 const login = catchAsync(async (req: Request, res: Response) => {
   const result = await AuthService.login(req.body)
+  // console.log("result", result)
 
   sendResponse(res, {
     status: true,
-    statusCode: StatusCodes.CREATED,
-    message: 'User log in successfully',
-    token: result.token,
-    data: result.verifiedUser,
+    statusCode: StatusCodes.OK,
+    message: 'User logged in successfully',
+    data: result,
   })
 })
 
