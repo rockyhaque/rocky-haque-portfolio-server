@@ -13,7 +13,7 @@ const auth = (...requiredRole: string[]) => {
     }
 
     // Verify the token
-    const decoded = jwt.verify(token, config.jwt.secret_expiresin as string) as JwtPayload
+    const decoded = jwt.verify(token, config.jwt.secret as string) as JwtPayload
 
     // console.log(decoded)
 
@@ -25,17 +25,11 @@ const auth = (...requiredRole: string[]) => {
       throw new Error('User not found')
     }
 
-    // if(requiredRole !== role) {
-    //   throw new Error('You are not authorized')
-    // }
-
     if (requiredRole && !requiredRole.includes(role)) {
       throw new Error('You are not authorized')
     }
 
     req.user = decoded as JwtPayload
-
-    // console.log("decoded", decoded)
 
     next()
   })
