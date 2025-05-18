@@ -6,23 +6,25 @@ import { blogServices } from './blog.service'
 const createBlog = catchAsync(async (req, res) => {
   const result = await blogServices.createBlog(req.body)
 
-  const filteredResult = {
-    _id: result._id,
-    title: result.title,
-    content: result.content,
-    author: result.author,
-  }
-
   sendResponse(res, {
     status: true,
     statusCode: StatusCodes.CREATED,
     message: 'Blog created successfully',
-    data: filteredResult,
+    data: result,
   })
 })
 
 const getBlogs = catchAsync(async (req, res) => {
-  const result = await blogServices.getBlogs()
+  const result = await blogServices.getBlogs(req.query)
+
+  if (!result || result.length === 0) {
+    return sendResponse(res, {
+      status: false,
+      statusCode: StatusCodes.NOT_FOUND,
+      message: 'No blogs found matching your criteria',
+      data: null,
+    })
+  }
 
   sendResponse(res, {
     status: true,
@@ -59,7 +61,6 @@ const updateBlog = catchAsync(async (req, res) => {
       data: null,
     })
   }
-
 
   sendResponse(res, {
     status: true,

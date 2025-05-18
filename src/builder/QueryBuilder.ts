@@ -36,8 +36,14 @@ class QueryBuilder<T> {
     ]
     excludedFields.forEach((el) => delete queryObj[el])
 
-    // Handle filter logic dynamically for allowed fields
-    const allowedFilters = ['type', 'price', 'inStock']
+    // Blog-specific filterable fields
+    const allowedFilters = [
+      'category',
+      'tags',
+      'isPublished',
+      'isFeatured',
+    ]
+
     const filterQuery: Record<string, unknown> = {}
 
     allowedFilters.forEach((field) => {

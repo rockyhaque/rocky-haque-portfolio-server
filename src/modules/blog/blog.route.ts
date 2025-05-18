@@ -5,14 +5,15 @@ import { BlogValidation } from './blog.validation'
 
 const blogRouter = express.Router()
 
+blogRouter.get('/all-blogs', BlogControllers.getBlogs)
+blogRouter.get('/:id', BlogControllers.getSingleBlog)
+
 blogRouter.post(
   '/create-blog',
   validateRequest(BlogValidation.createBlogValidationSchema),
   BlogControllers.createBlog
 )
 
-blogRouter.get('/all-blogs', BlogControllers.getBlogs)
-blogRouter.get('/:id', BlogControllers.getSingleBlog)
 blogRouter.patch('/update-blog/:id', BlogControllers.updateBlog)
 blogRouter.delete('/delete-blog/:id', BlogControllers.deleteBlog)
 
