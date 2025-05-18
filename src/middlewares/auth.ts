@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 import catchAsync from '../utils/catchAsync'
 import jwt, { JwtPayload } from 'jsonwebtoken'
 import User from '../modules/user/user.model'
+import config from '../config'
 
 const auth = (...requiredRole: string[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
@@ -12,7 +13,7 @@ const auth = (...requiredRole: string[]) => {
     }
 
     // Verify the token
-    const decoded = jwt.verify(token, 'secret') as JwtPayload
+    const decoded = jwt.verify(token, config.jwt.secret_expiresin as string) as JwtPayload
 
     // console.log(decoded)
 

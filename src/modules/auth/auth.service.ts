@@ -1,4 +1,5 @@
 import config from '../../config'
+import { jwtHelpers } from '../../utils/jwtHelpers'
 import sendMail from '../../utils/sendMail'
 import { IUser } from '../user/user.interface'
 import User from '../user/user.model'
@@ -41,24 +42,19 @@ const login = async (payload: ILoginUser) => {
     throw new Error('Password is incorrect')
   }
 
-  // const token = jwt.sign(
-  //   {
-  //     email: user?.email,
-  //     role: user?.role,
-  //   },
-  //   'secret',
-  //   {
-  //     expiresIn: '1d',
-  //   }
-  // )
+  const token = jwtHelpers.generateToken(
+    {
+      email: user?.email,
+      role: user?.role,
+    },
+    config.jwt.secret as string,
+    config.jwt.secret_expiresin as string
+  )
 
   return {
-    user: {
-      name: user.name,
-      email: user.email,
-      role: user.role,
-      image: user.image || null,
-    },
+    email: user.email,
+    role: user.role,
+    token,
   }
 }
 
@@ -75,11 +71,14 @@ const forgetPassword = async (payload: { email: string }) => {
     throw new Error('User is Inactive or blocked!')
   }
 
-  const jwtpayload = {
-    email: user?.email,
-    role: user?.role,
-  }
-  const token = jwt.sign(jwtpayload, 'secret', { expiresIn: '1h' })
+  const token = jwtHelpers.generateToken(
+    {
+      email: user?.email,
+      role: user?.role,
+    },
+    config.jwt.secret as string,
+    config.jwt.secret_expiresin as string
+  )
 
   const resetLink = `http://localhost:5173/reset-password?id=${user?._id}&token=${token}`
 
