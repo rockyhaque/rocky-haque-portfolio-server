@@ -6,6 +6,7 @@ import authRouter from './modules/auth/auth.route'
 import userRouter from './modules/user/user.route'
 import contactRouter from './modules/contact/contact.route';
 import blogRouter from './modules/blog/blog.route';
+import projectRouter from './modules/project/project.routes';
 
 const app = express()
 
@@ -18,6 +19,7 @@ app.use('/api/auth', authRouter)
 app.use('/api/users', userRouter)
 app.use('/api/contact', contactRouter)
 app.use('/api/blog', blogRouter)
+app.use('/api/project', projectRouter)
 
 app.get('/', (req: Request, res: Response) => {
   res.send({
