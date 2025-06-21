@@ -1,7 +1,7 @@
 interface Author {
-  name: string
-  email: string
-  profileImage: string
+  name?: string
+  email?: string
+  profileImage?: string
 }
 
 export interface IBlog {
@@ -9,7 +9,7 @@ export interface IBlog {
   image: string
   summary: string
   content: string
-  author: Author
+  author?: Author
   tags?: string[]
   category: string
   isPublished: boolean

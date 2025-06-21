@@ -15,22 +15,9 @@ const blogCategories = [
 ] as const
 
 const authorSchema = z.object({
-  name: z
-    .string({
-      required_error: 'Please provide an author name',
-    })
-    .min(2),
-  profileImage: z
-    .string({
-      required_error: 'Please provide an author image URL',
-    })
-    .url('Invalid image URL')
-    .optional(),
-  email: z
-    .string({
-      required_error: 'Author email is required',
-    })
-    .email('Invalid email format'),
+  name: z.string().optional(),
+  profileImage: z.string().optional(),
+  email: z.string().optional(),
 })
 
 const createBlogValidationSchema = z.object({
@@ -60,7 +47,7 @@ const createBlogValidationSchema = z.object({
     })
     .min(10, 'Content must be at least 10 characters long'),
 
-  author: authorSchema,
+  author: authorSchema.optional(),
 
   tags: z.array(z.string()).optional(),
 

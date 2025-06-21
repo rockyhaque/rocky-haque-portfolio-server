@@ -9,9 +9,9 @@ const blogSchema = new Schema<IBlog>(
       trim: true
     },
     author: {
-      name: { type: String, required: true },
+      name: { type: String },
       email: {type: String},
-      profileImage: { type: String }, // Optional
+      profileImage: { type: String }, 
     },
     image: {
       type: String,
