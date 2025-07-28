@@ -13,7 +13,7 @@ const app = express()
 // middleware
 app.use(express.json())
 app.use(cookieParser());
-app.use(cors({ origin: ['http://localhost:3000','http://localhost:3001', 'https://rocky-haque.vercel.app'] ,credentials:true}))
+app.use(cors({ origin: ['http://localhost:3000','https://www.rockyhaque.com', 'https://rocky-haque.vercel.app'] ,credentials:true}))
 
 app.use('/api/auth', authRouter)
 app.use('/api/users', userRouter)
