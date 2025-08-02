@@ -1,19 +1,34 @@
-import cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import express, { Request, Response } from 'express'
 import { globalErrorHandler } from './middlewares/globalErrorHandler'
 import authRouter from './modules/auth/auth.route'
 import userRouter from './modules/user/user.route'
-import contactRouter from './modules/contact/contact.route';
-import blogRouter from './modules/blog/blog.route';
-import projectRouter from './modules/project/project.routes';
+import contactRouter from './modules/contact/contact.route'
+import blogRouter from './modules/blog/blog.route'
+import projectRouter from './modules/project/project.routes'
 
 const app = express()
 
 // middleware
 app.use(express.json())
-app.use(cookieParser());
-app.use(cors({ origin: ['http://localhost:3000','https://www.rockyhaque.com', 'https://rocky-haque.vercel.app'] ,credentials:true}))
+app.use(cookieParser())
+// app.use(
+//   cors({
+//     origin: [
+//       'http://localhost:3000',
+//       'https://www.rockyhaque.com',
+//       'https://rocky-haque.vercel.app',
+//     ],
+//     credentials: true,
+//   })
+// )
+app.use(
+  cors({
+    origin: '*',
+  })
+);
+
 
 app.use('/api/auth', authRouter)
 app.use('/api/users', userRouter)
