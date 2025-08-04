@@ -32,6 +32,7 @@ app.use(cookieParser())
 app.use(
   cors({
     origin: (origin, callback) => {
+      console.log("Received origin:", origin); 
       const allowedOrigins = [
         'http://localhost:3000',
         'https://www.rockyhaque.com',
@@ -40,13 +41,13 @@ app.use(
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
+        console.error("❌ BLOCKED ORIGIN:", origin);
         callback(new Error("Not allowed by CORS"));
       }
     },
     credentials: true,
   })
 );
-
 
 
 app.use('/api/auth', authRouter)
