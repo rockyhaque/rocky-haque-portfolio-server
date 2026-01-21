@@ -17,7 +17,7 @@ import catchAsync from '../../utils/catchAsync'
 // })
 
 const getMyProfile = catchAsync(async (req, res) => {
-  const {email} = req.params
+  const email = req.params.email as string
   // console.log(email)
   const result = await userService.getMyProfile(email)
   sendResponse(res, {
@@ -37,7 +37,7 @@ const getUser = catchAsync(async (req, res) => {
 })
 
 const getSingleUser = catchAsync(async (req, res) => {
-  const userId = req.params.userId
+  const userId = req.params.userId as string
   const result = await userService.getSingleUser(userId)
   sendResponse(res, {
     statusCode: StatusCodes.OK,
@@ -47,7 +47,7 @@ const getSingleUser = catchAsync(async (req, res) => {
 })
 
 const updateUser = catchAsync(async (req, res) => {
-  const userId = req.params.userId
+  const userId = req.params.userId as string
   const body = req.body
   const result = await userService.updateUser(userId, body)
   sendResponse(res, {
@@ -58,7 +58,7 @@ const updateUser = catchAsync(async (req, res) => {
 })
 
 const deleteUser = catchAsync(async (req, res) => {
-  const userId = req.params.userId
+  const userId = req.params.userId as string
   await userService.deleteUser(userId)
   sendResponse(res, {
     statusCode: StatusCodes.OK,
@@ -68,7 +68,7 @@ const deleteUser = catchAsync(async (req, res) => {
 })
 
 const blockUser = catchAsync(async (req, res) => {
-    const userId = req.params.userId;
+    const userId = req.params.userId as string;
     await userService.blockUser(userId);
   
     sendResponse(res, {

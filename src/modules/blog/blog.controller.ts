@@ -35,7 +35,7 @@ const getBlogs = catchAsync(async (req, res) => {
 })
 
 const getSingleBlog = catchAsync(async (req, res) => {
-  const id = req.params.id
+  const id = req.params.id as string
   const result = await blogServices.getSingleBlog(id)
 
   sendResponse(res, {
@@ -47,7 +47,7 @@ const getSingleBlog = catchAsync(async (req, res) => {
 })
 
 const updateBlog = catchAsync(async (req, res) => {
-  const id = req.params.id
+  const id = req.params.id as string
   const body = req.body
   // console.log(body)
   const result = await blogServices.updateBlog(id, body)
@@ -72,7 +72,7 @@ const updateBlog = catchAsync(async (req, res) => {
 
 const deleteBlog = catchAsync(async (req, res) => {
   console.log(req.user)
-  const id = req.params.id
+  const id = req.params.id as string
 
   await blogServices.deleteBlog(id)
 
