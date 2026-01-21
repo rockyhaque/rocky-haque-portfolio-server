@@ -59,7 +59,7 @@ app.use('/api/project', projectRouter)
 app.get('/', (req: Request, res: Response) => {
   res.send({
     status: true,
-    message: 'Portfolio Server is running',
+    message: 'My Portfolio Server is running...',
   })
 })
 
