@@ -1,18 +1,36 @@
-import config from './config'
-// import { config } from 'dotenv'
+// import config from './config'
+// import mongoose from 'mongoose'
+// import app from './app'
+
+// async function server() {
+//   try {
+//     await mongoose.connect(config.database_url as string)
+
+//     app.listen(config.port, () => {
+//       console.log(`Portfolio server is running on ${config.port} 🎯`)
+//     })
+//   } catch (error) {
+//     console.error(error)
+//   }
+// }
+
+// server()
+
+
 import mongoose from 'mongoose'
 import app from './app'
+import config from './config'
 
-async function server() {
-  try {
-    await mongoose.connect(config.database_url as string)
+let isConnected = false
 
-    app.listen(config.port, () => {
-      console.log(`Portfolio server is running on ${config.port} 🎯`)
-    })
-  } catch (error) {
-    console.error(error)
-  }
+async function connectDB() {
+  if (isConnected) return
+  await mongoose.connect(config.database_url as string)
+  isConnected = true
 }
 
-server()
+// 👇 Vercel entry point
+export default async function handler(req: any, res: any) {
+  await connectDB()
+  return app(req, res)
+}
